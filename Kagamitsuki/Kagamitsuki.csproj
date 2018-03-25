@@ -41,7 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MouseNativeHelper.cs" />
+    <Compile Include="Native\Gdi32.cs" />
+    <Compile Include="Native\User32.cs" />
+    <Compile Include="Native\WinAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VirtualMouse.cs" />
+    <Compile Include="WindowCapture.cs" />
+    <Compile Include="WindowNativeHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
