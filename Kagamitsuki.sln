@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kagamitsuki", "Kagamitsuki\Kagamitsuki.csproj", "{B72CCF85-2A2B-4EA5-AA54-E5C39181A051}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kagamitsuki.SampleConsoleApp", "Kagamitsuki.SampleConsoleApp\Kagamitsuki.SampleConsoleApp.csproj", "{2C4C3691-278C-4A1E-A626-8640B9EB341F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B72CCF85-2A2B-4EA5-AA54-E5C39181A051}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B72CCF85-2A2B-4EA5-AA54-E5C39181A051}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B72CCF85-2A2B-4EA5-AA54-E5C39181A051}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C4C3691-278C-4A1E-A626-8640B9EB341F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C4C3691-278C-4A1E-A626-8640B9EB341F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C4C3691-278C-4A1E-A626-8640B9EB341F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C4C3691-278C-4A1E-A626-8640B9EB341F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
