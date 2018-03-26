@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Threading.Tasks;
 
 namespace Kagamitsuki
 {
@@ -22,6 +23,11 @@ namespace Kagamitsuki
         public void Click(int x, int y)
         {
             MouseNativeHelper.Click(hWnd, origin.X + x, origin.Y + y);
+        }
+
+        public async Task ClickAsync(int x, int y, TimeSpan delayButtonUp)
+        {
+            await MouseNativeHelper.ClickAsync(hWnd, origin.X + x, origin.Y + y, delayButtonUp);
         }
 
         public void Move(int x, int y)
