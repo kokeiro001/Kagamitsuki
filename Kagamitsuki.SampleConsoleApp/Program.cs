@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Kagamitsuki.SampleConsoleApp
@@ -31,12 +29,12 @@ namespace Kagamitsuki.SampleConsoleApp
             var targetWindowHandle = targetWindows[0].hWnd;
 
             var bounds = WindowNativeHelper.GetWindowBounds(targetWindowHandle);
-            var captureBounds = new Rectangle(0, 0, bounds.right - bounds.left, bounds.bottom - bounds.top);
+            var captureBounds = new Rectangle(0, 0, bounds.Right - bounds.Left, bounds.Bottom - bounds.Top);
 
             WindowNativeHelper.SetForceForegroundWindow(targetWindowHandle);
 
             var windowCapture = new WindowCapture(targetWindowHandle, captureBounds);
-            var virtualMouse = new VirtualMouse(targetWindowHandle, 0, 0);
+            var virtualMouse = new VirtualMouseNativeMethods(targetWindowHandle, 0, 0);
 
             var clickPoints = new Point[] 
             {

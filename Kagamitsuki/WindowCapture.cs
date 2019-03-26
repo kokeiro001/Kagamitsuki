@@ -11,18 +11,16 @@ namespace Kagamitsuki
         readonly IntPtr windowHandle;
         Graphics writerBitmapGraphcis = null;
 
-        /// <summary>キャプチャ対象のウィンドウ内におけるキャプチャ範囲</summary>
+        /// <summary>キャプチャ対象のウィンドウ内におけるキャプチャ範囲 </summary>
         public Drawing.Rectangle CaptureBoundsInWindow { get; private set; }
 
         public Bitmap WriterBitmap { get; private set; }
-
 
         /// <summary>キャプチャした画像を保持するためのBitmapインスタンスが有効な状態であるか取得する</summary>
         private bool EnableWriterBitmap => 
                        WriterBitmap != null &&
                        WriterBitmap.Width == CaptureBoundsInWindow.Width &&
                        WriterBitmap.Height == CaptureBoundsInWindow.Height;
-
 
         public WindowCapture(IntPtr windowHandle)
             : this(windowHandle, WindowNativeHelper.GetWindowBounds(windowHandle).ToSystemDrawingRectangle())
@@ -52,18 +50,18 @@ namespace Kagamitsuki
                 UpdateWriterBitmap();
             }
 
-            IntPtr windowDC = User32.GetWindowDC(windowHandle);
+            IntPtr windowDC = User32NativeMethods.GetWindowDC(windowHandle);
             IntPtr hDC = writerBitmapGraphcis.GetHdc();
-            Gdi32.BitBlt(hDC,
+            Gdi32NativeMethods.BitBlt(hDC,
                    0,
                    0,
                    WriterBitmap.Width, WriterBitmap.Height,
                    windowDC,
                    CaptureBoundsInWindow.X,
                    CaptureBoundsInWindow.Y,
-                   (int)Gdi32.TernaryRasterOperations.SRCCOPY);
+                   (int)Gdi32NativeMethods.TernaryRasterOperations.SRCCOPY);
             writerBitmapGraphcis.ReleaseHdc(hDC);
-            User32.ReleaseDC(windowHandle, windowDC);
+            User32NativeMethods.ReleaseDC(windowHandle, windowDC);
 
             return WriterBitmap;
         }

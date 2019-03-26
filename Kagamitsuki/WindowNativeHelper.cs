@@ -14,15 +14,15 @@ namespace Kagamitsuki
         {
             var list = new List<(string title, IntPtr hWnd)>();
 
-            User32.EnumWindows(new User32.EnumWindowsDelegate((hWnd, lparam)=>
+            User32NativeMethods.EnumWindows(new User32NativeMethods.EnumWindowsDelegate((hWnd, lparam) =>
             {
-                //ウィンドウのタイトルの長さを取得し、タイトルを持つもののみ結果とする
-                int textLen = User32.GetWindowTextLength(hWnd);
+                // ウィンドウのタイトルの長さを取得し、タイトルを持つもののみ結果とする
+                int textLen = User32NativeMethods.GetWindowTextLength(hWnd);
                 if (textLen > 0)
                 {
-                    //ウィンドウのタイトルを取得する
+                    // ウィンドウのタイトルを取得する
                     StringBuilder tsb = new StringBuilder(textLen + 1);
-                    User32.GetWindowText(hWnd, tsb, tsb.Capacity);
+                    User32NativeMethods.GetWindowText(hWnd, tsb, tsb.Capacity);
                     list.Add((tsb.ToString(), hWnd));
                 }
 
@@ -37,31 +37,31 @@ namespace Kagamitsuki
         public static void SetForceForegroundWindow(IntPtr targetHandle)
         {
             // ターゲットとなるハンドルのスレッドIDを取得する
-            var targetThreadId = User32.GetWindowThreadProcessId(targetHandle, out var _);
+            var targetThreadId = User32NativeMethods.GetWindowThreadProcessId(targetHandle, out var _);
 
             // 現在アクティブとなっているウィンドウのスレッドIDを取得する
-            var currentActiveThreadId = User32.GetWindowThreadProcessId(User32.GetForegroundWindow(), out var _);
+            var currentActiveThreadId = User32NativeMethods.GetWindowThreadProcessId(User32NativeMethods.GetForegroundWindow(), out var _);
 
             // アクティブ処理
-            User32.SetForegroundWindow(targetHandle);
+            User32NativeMethods.SetForegroundWindow(targetHandle);
             if (targetThreadId == currentActiveThreadId)
             {
                 // 現在アクティブなウィンドウがキャプチャ対象のウィンドウの場合は前面に持ってくる
-                User32.BringWindowToTop(targetHandle);
+                User32NativeMethods.BringWindowToTop(targetHandle);
             }
             else
             {
                 // 別のプロセスがアクティブな場合は、そのプロセスにアタッチし、入力を奪う
-                User32.AttachThreadInput(targetThreadId, currentActiveThreadId, true);
+                User32NativeMethods.AttachThreadInput(targetThreadId, currentActiveThreadId, true);
                 try
                 {
                     // 前面に持ってくる
-                    User32.BringWindowToTop(targetHandle);
+                    User32NativeMethods.BringWindowToTop(targetHandle);
                 }
                 finally
                 {
                     // アタッチを解除する
-                    User32.AttachThreadInput(targetThreadId, currentActiveThreadId, false);
+                    User32NativeMethods.AttachThreadInput(targetThreadId, currentActiveThreadId, false);
                 }
             }
         }
@@ -69,11 +69,12 @@ namespace Kagamitsuki
         /// <summary>
         /// ウィンドウの表示領域を設定する
         /// </summary>
-        public static void SetWindowBounds(IntPtr hWnd, System.Drawing.Rectangle bounds)
+        public static void SetWindowBounds(IntPtr windowHandle, System.Drawing.Rectangle bounds)
         {
-            User32.SetWindowPos(hWnd, 0,
+            var wflags = User32NativeMethods.SWP_NOZORDER | User32NativeMethods.SWP_SHOWWINDOW;
+            User32NativeMethods.SetWindowPos(windowHandle, 0,
                 bounds.X, bounds.Y, bounds.Width, bounds.Height, 
-                (User32.SWP_NOZORDER | User32.SWP_SHOWWINDOW));
+                wflags);
         }
 
         /// <summary>
@@ -82,7 +83,7 @@ namespace Kagamitsuki
         public static Rectangle GetWindowBounds(IntPtr windowHandle)
         {
             var window = new Rectangle();
-            User32.GetWindowRect(windowHandle, ref window);
+            User32NativeMethods.GetWindowRect(windowHandle, ref window);
             return window;
         }
     }

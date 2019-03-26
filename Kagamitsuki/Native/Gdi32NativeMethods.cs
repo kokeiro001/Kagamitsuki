@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace Kagamitsuki.Native
 {
-    public static class Gdi32
+    public static class Gdi32NativeMethods
     {
         public enum TernaryRasterOperations : uint
         {

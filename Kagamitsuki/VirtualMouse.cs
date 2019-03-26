@@ -4,17 +4,17 @@ using System.Threading.Tasks;
 
 namespace Kagamitsuki
 {
-    public class VirtualMouse
+    public class VirtualMouseNativeMethods
     {
         private readonly IntPtr hWnd;
         private readonly Point origin;
 
-        public VirtualMouse(IntPtr hWnd)
+        public VirtualMouseNativeMethods(IntPtr hWnd)
             : this(hWnd, 0, 0)
         {
         }
 
-        public VirtualMouse(IntPtr hWnd, int originX, int originY)
+        public VirtualMouseNativeMethods(IntPtr hWnd, int originX, int originY)
         {
             this.hWnd = hWnd;
             origin = new Point(origin.X, origin.Y);
